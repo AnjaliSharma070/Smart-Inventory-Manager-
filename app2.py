@@ -111,46 +111,201 @@ st.set_page_config(
     layout="wide"
 )
 
-# Aesthetic version: visual styling only
-px.defaults.template = "plotly_dark"
 st.markdown("""
 <style>
-    .block-container {
-        padding-top: 1.3rem;
-    }
+.stApp {
+    background: radial-gradient(circle at 10% 0%, rgba(139,92,246,.16), transparent 30%),
+                radial-gradient(circle at 90% 5%, rgba(34,211,238,.10), transparent 28%),
+                #0b1020;
+}
+
+.block-container {
+    padding-top: 1.1rem;
+    padding-bottom: 2rem;
+    max-width: 1500px;
+}
+
+.sim-header {
+    padding: 30px 35px;
+    margin-bottom: 25px;
+    border-radius: 20px;
+    background: linear-gradient(135deg, #111936, #241744 55%, #103444);
+    border: 1px solid rgba(139,92,246,.35);
+    box-shadow: 0 12px 35px rgba(0,0,0,.3);
+}
+
+.sim-badge {
+    display: inline-block;
+    padding: 7px 14px;
+    border-radius: 999px;
+    background: rgba(34,211,238,.12);
+    border: 1px solid rgba(34,211,238,.4);
+    color: #67e8f9;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: .08em;
+}
+
+.sim-header h1 {
+    margin: 16px 0 8px;
+    color: #fff;
+    font-size: 2.5rem;
+}
+
+.sim-header p {
+    margin: 0;
+    color: #c7d2fe;
+    font-size: 1.05rem;
+}
 </style>
 """, unsafe_allow_html=True)
 
+# Aesthetic version: visual styling only
+px.defaults.template = "plotly_dark"
 
 st.markdown("""
 <style>
-.stApp { background: radial-gradient(circle at 10% 0%, rgba(139,92,246,.16), transparent 30%), radial-gradient(circle at 90% 5%, rgba(34,211,238,.10), transparent 28%), #0b1020; }
-.block-container { padding-top: 1.1rem; padding-bottom: 2rem; max-width: 1500px; }
-section[data-testid="stSidebar"] { background: linear-gradient(180deg,#0d1427,#11182b); border-right: 1px solid rgba(139,92,246,.25); }
-.sim-header { padding: 25px 30px; margin-bottom: 20px; border-radius: 22px; background: linear-gradient(135deg,#151b35,#241744 55%,#103444); border: 1px solid rgba(139,92,246,.3); box-shadow: 0 12px 35px rgba(0,0,0,.25); }
-.sim-badge { display:inline-block; padding:6px 11px; border-radius:999px; background:rgba(34,211,238,.12); border:1px solid rgba(34,211,238,.3); color:#67e8f9; font-size:11px; font-weight:700; letter-spacing:.08em; }
-.sim-header h1 { margin:12px 0 5px; font-size:2.25rem; color:#f8fafc; }
-.sim-header p { margin:0; color:#c7d2fe; }
-div[data-testid="stMetric"] { background:linear-gradient(145deg,#131d34,#171b35); border:1px solid rgba(139,92,246,.28); border-radius:16px; padding:12px 15px; box-shadow:0 8px 22px rgba(0,0,0,.18); }
-div[data-testid="stMetric"] label { color:#a5b4fc !important; }
-div[data-testid="stMetricValue"] { color:#f8fafc !important; }
-button[data-baseweb="tab"] { color:#a5b4fc !important; font-weight:600; }
-button[data-baseweb="tab"][aria-selected="true"] { color:#67e8f9 !important; }
-div[data-baseweb="tab-highlight"] { background:#22d3ee !important; }
-.stButton > button { border-radius:10px; border:1px solid rgba(139,92,246,.45); background:linear-gradient(135deg,#6d28d9,#0891b2); color:white; font-weight:600; }
-.stButton > button:hover { border-color:#67e8f9; box-shadow:0 0 18px rgba(34,211,238,.18); }
-div[data-testid="stFileUploader"] { border:1px dashed rgba(34,211,238,.35); border-radius:14px; padding:6px; background:rgba(18,26,46,.55); }
-div[data-testid="stDataFrame"] { border:1px solid rgba(139,92,246,.28); border-radius:14px; overflow:hidden; }
-div[data-testid="stAlert"] { border-radius:12px; }
-hr { border-color:rgba(139,92,246,.22) !important; }
+/* TOP BAR */
+header[data-testid="stHeader"] {
+    background: linear-gradient(90deg, #111936, #241744, #103444) !important;
+}
+
+div[data-testid="stToolbar"] {
+    background: transparent !important;
+}
+
+/* MAIN BACKGROUND */
+.stApp {
+    background:
+        radial-gradient(circle at 10% 0%, rgba(139,92,246,.16), transparent 30%),
+        radial-gradient(circle at 90% 5%, rgba(34,211,238,.10), transparent 28%),
+        #0b1020;
+}
+
+.block-container {
+    padding-top: 1.3rem;
+    padding-bottom: 2rem;
+    max-width: 1500px;
+}
+
+/* SIDEBAR */
+section[data-testid="stSidebar"] {
+    background: linear-gradient(180deg, #0d1427, #11182b);
+    border-right: 1px solid rgba(139,92,246,.25);
+}
+
+/* HEADER CARD */
+.sim-header {
+    width: calc(100% + 3rem);
+    margin: -1.2rem -1.5rem 25px;
+    padding: 38px 55px;
+    border-radius: 0 0 26px 26px;
+    background: linear-gradient(135deg, #111936, #241744 48%, #103444);
+    border: 1px solid rgba(139,92,246,.35);
+    box-shadow: 0 15px 40px rgba(0,0,0,.30);
+}
+
+.sim-header .badge {
+    display: inline-block;
+    padding: 7px 14px;
+    border-radius: 999px;
+    background: rgba(34,211,238,.12);
+    border: 1px solid rgba(34,211,238,.40);
+    color: #67e8f9;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: .08em;
+}
+
+.sim-header h1 {
+    margin: 16px 0 8px;
+    font-size: 2.5rem;
+    font-weight: 800;
+    color: #ffffff;
+}
+
+.sim-header p {
+    margin: 0;
+    color: #c7d2fe;
+    font-size: 1.05rem;
+}
+
+/* METRICS */
+div[data-testid="stMetric"] {
+    background: linear-gradient(145deg, #131d34, #171b35);
+    border: 1px solid rgba(139,92,246,.28);
+    border-radius: 16px;
+    padding: 12px 15px;
+    box-shadow: 0 8px 22px rgba(0,0,0,.18);
+}
+
+div[data-testid="stMetric"] label {
+    color: #a5b4fc !important;
+}
+
+div[data-testid="stMetricValue"] {
+    color: #f8fafc !important;
+}
+
+/* TABS */
+button[data-baseweb="tab"] {
+    color: #a5b4fc !important;
+    font-weight: 600;
+}
+
+button[data-baseweb="tab"][aria-selected="true"] {
+    color: #67e8f9 !important;
+}
+
+/* BUTTONS */
+.stButton > button {
+    border-radius: 10px;
+    border: 1px solid rgba(139,92,246,.45);
+    background: linear-gradient(135deg, #6d28d9, #0891b2);
+    color: white;
+    font-weight: 600;
+}
+
+.stButton > button:hover {
+    border-color: #67e8f9;
+    box-shadow: 0 0 18px rgba(34,211,238,.18);
+}
+
+/* FILE UPLOADER */
+div[data-testid="stFileUploader"] {
+    border: 1px dashed rgba(34,211,238,.35);
+    border-radius: 14px;
+    padding: 6px;
+    background: rgba(18,26,46,.55);
+}
+
+/* DATAFRAME AND ALERTS */
+div[data-testid="stDataFrame"] {
+    border: 1px solid rgba(139,92,246,.28);
+    border-radius: 14px;
+    overflow: hidden;
+}
+
+div[data-testid="stAlert"] {
+    border-radius: 12px;
+}
+
+hr {
+    border-color: rgba(139,92,246,.22) !important;
+}
 </style>
 """, unsafe_allow_html=True)
 
 st.markdown("""
 <div class="sim-header">
-  <span class="sim-badge">✦ AI-POWERED INVENTORY INTELLIGENCE</span>
-  <h1>📦 Smart Inventory Manager</h1>
-  <p>Machine-learning powered inventory analysis, product movement classification and anomaly detection.</p>
+    <span class="sim-badge">
+        ✦ AI-POWERED INVENTORY INTELLIGENCE
+    </span>
+    <h1>📦 Smart Inventory Manager</h1>
+    <p>
+        Machine-learning powered inventory analysis,
+        product movement classification and anomaly detection.
+    </p>
 </div>
 """, unsafe_allow_html=True)
 
@@ -1386,3 +1541,4 @@ with tab6:
         mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
         key="download_formatted_excel"
     )
+
