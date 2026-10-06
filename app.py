@@ -713,14 +713,48 @@ tab1, tab2, tab3, tab4, tab5, tab6 = st.tabs(
 
 with tab1:
 
-    st.subheader(
-        "Product Movement"
-    )
+    st.subheader("📊 Inventory Dashboard")
+
+    # -------------------------------------------------
+    # DASHBOARD METRICS
+    # -------------------------------------------------
+
+    col1, col2, col3, col4 = st.columns(4)
+
+    with col1:
+        st.metric(
+            "Total Products",
+            f"{summary['total_products']:,}"
+        )
+
+    with col2:
+        st.metric(
+            "Total Stock",
+            f"{summary['total_stock']:,}"
+        )
+
+    with col3:
+        st.metric(
+            "Units Sold",
+            f"{summary['total_sales']:,}"
+        )
+
+    with col4:
+        st.metric(
+            "Revenue",
+            f"₹{summary['total_revenue']:,.2f}"
+        )
+
+    st.markdown("---")
+
+    # -------------------------------------------------
+    # PRODUCT MOVEMENT
+    # -------------------------------------------------
+
+    st.subheader("Product Movement")
 
     movement_counts = (
-        df[
-            "Movement_Status"
-        ]
+        df["Movement_Status"]
         .value_counts()
         .reset_index()
     )
@@ -742,14 +776,14 @@ with tab1:
         use_container_width=True
     )
 
+    # -------------------------------------------------
+    # SALES BY CATEGORY
+    # -------------------------------------------------
 
-    st.subheader(
-        "Sales by Category"
-    )
+    st.subheader("Sales by Category")
 
     category_sales = (
-        df.groupby("Category")
-        ["Units_Sold"]
+        df.groupby("Category")["Units_Sold"]
         .sum()
         .reset_index()
     )
@@ -766,23 +800,19 @@ with tab1:
         use_container_width=True
     )
 
+    # -------------------------------------------------
+    # SMART INSIGHTS
+    # -------------------------------------------------
 
-    # Insights
-    st.subheader(
-        "💡 Smart Insights"
-    )
+    st.subheader("💡 Smart Insights")
 
-    insights = generate_insights(
-        df
-    )
+    insights = generate_insights(df)
 
     if insights:
 
         for insight in insights:
 
-            st.info(
-                insight
-            )
+            st.info(insight)
 
     else:
 
